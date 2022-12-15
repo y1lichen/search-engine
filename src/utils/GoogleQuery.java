@@ -1,3 +1,8 @@
+/*
+ * This file is for calling google-search
+ * Created by 陳奕利
+ */
+
 package utils;
 
 import java.io.BufferedReader;
@@ -18,9 +23,16 @@ public class GoogleQuery {
 	public String url;
 	public String content;
 
+	// 把輸入的keyword改成get method的參數樣子
+	public static String reformatKeyword(String keyword) {
+		String result = keyword.replace(" ", "%");
+		return result;
+	}
+
 	public GoogleQuery(String searchKeyword) {
-		this.searchKeyword = searchKeyword;
-		this.url = "http://www.google.com/search?q=" + searchKeyword + "&oe=utf8&num=20";
+		String temp = reformatKeyword(searchKeyword);
+		this.searchKeyword = temp;
+		this.url = "http://www.google.com/search?q=" + temp + "&oe=utf8&num=20";
 	}
 
 	private String fetchContent() throws IOException {
