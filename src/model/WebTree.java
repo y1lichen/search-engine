@@ -1,9 +1,9 @@
 package model;
 
 public class WebTree {
-	WebPage rootPage;
+	public WebNode root;
 
-	public WebTree(String url) {
-		this.rootPage = new WebPage(url);
+	public WebTree(WebPage a) {
+		this.root = new WebNode(a);
 	}
 }
