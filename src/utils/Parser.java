@@ -38,7 +38,6 @@ public class Parser {
 				// For example, if fullTag is "</li>" then the tagName will be "/li" (Note that
 				// we preserve the slash'/' so we can tell that this is a close tag in the
 				// future)
-				// 3.**here
 				tagName = fullTag.substring(1, fullTag.length() - 1);
 			} else {
 				// If there are some space in the fullTag (e.g "<li id='theID'>","<a
@@ -48,7 +47,6 @@ public class Parser {
 				// For example, if fullTag is "<li id='theID'>" the tagName will be "li";
 				// For example, if fullTag is "<a href='http://www.google.com.tw/'>" the tagName
 				// will be "a"
-				// 4.**here
 				tagName = fullTag.substring(1, indexOfSpace);
 			}
 
@@ -62,13 +60,11 @@ public class Parser {
 			int indexOfSlash = -1;
 			if ((indexOfSlash = tagName.indexOf("/")) == -1) {
 				// This is an open tag, so simply push it into stack
-				// 5.**here
 				tagStack.push(tagName);
 			} else {
 				// This is an close tag, so we should compare it to the topmost tag in the stack
 				// Remove the slash '/' (the first character of tagName), so that we can compare
 				// it with the open tag name in stack
-				// 6.**here
 				tagName = tagName.substring(indexOfSlash + 1);
 
 				// But...what if there is no topmost tag in the stack
@@ -84,7 +80,6 @@ public class Parser {
 				if (topMostTag.equals(tagName)) {
 					// This tagName is equal to the tag name in the stack!
 					// Pop out the top tag in the stack.
-					// 7.**here
 					tagStack.pop();
 
 				} else {
