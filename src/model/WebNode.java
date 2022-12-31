@@ -11,10 +11,12 @@ public class WebNode {
 	public Set<WebNode> children;
 	public WebPage page;
 	public double score;
+	public WebNode left, right;
 
 	public WebNode(WebPage page) {
 		this.page = page;
 		this.children = new HashSet<>();
+		left = right = null;
 	}
 	
 	public void addChild(WebNode child) {
@@ -31,5 +33,6 @@ public class WebNode {
 		}
 		return retVal;
 	}
+	
 
 }

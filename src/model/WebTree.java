@@ -6,4 +6,8 @@ public class WebTree {
 	public WebTree(WebPage a) {
 		this.root = new WebNode(a);
 	}
+	
+	public void addChild(WebNode parent, WebNode child) {
+		parent.addChild(child);
+	}
 }
