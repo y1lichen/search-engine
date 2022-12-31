@@ -13,10 +13,11 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.HashMap;
 
+import javax.lang.model.util.Elements;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 
 public class GoogleQuery {
 	public String searchKeyword;
@@ -60,12 +61,6 @@ public class GoogleQuery {
 		}
 
 		HashMap<String, String> retVal = new HashMap<String, String>();
-
-		/*
-		 * some Jsoup source
-		 * https://jsoup.org/apidocs/org/jsoup/nodes/package-summary.html
-		 * https://www.1ju.org/jsoup/jsoup-quick-start
-		 */
 
 		// using Jsoup analyze html string
 		Document doc = Jsoup.parse(content);

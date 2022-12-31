@@ -18,7 +18,7 @@ public class WebNode {
 		this.children = new HashSet<>();
 		left = right = null;
 	}
-	
+
 	public void addChild(WebNode child) {
 		child.parent = this;
 		this.children.add(child);
@@ -33,6 +33,6 @@ public class WebNode {
 		}
 		return retVal;
 	}
-	
+
 
 }
