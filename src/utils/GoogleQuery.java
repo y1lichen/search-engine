@@ -13,11 +13,10 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.HashMap;
 
-import javax.lang.model.util.Elements;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 public class GoogleQuery {
 	public String searchKeyword;
@@ -78,7 +77,7 @@ public class GoogleQuery {
 					continue;
 				}
 
-				System.out.println("Title: " + title + " , url: " + citeUrl);
+				// System.out.println("Title: " + title + " , url: " + citeUrl);
 
 				// put title and pair into HashMap
 				retVal.put(title, citeUrl);

@@ -3,19 +3,18 @@
  */
 package model;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
 
 public class WebNode {
 	public WebNode parent;
-	public Set<WebNode> children;
+	public ArrayList<WebNode> children;
 	public WebPage page;
 	public double score;
 	public WebNode left, right;
 
 	public WebNode(WebPage page) {
 		this.page = page;
-		this.children = new HashSet<>();
+		this.children = new ArrayList<>();
 		left = right = null;
 	}
 
@@ -34,5 +33,12 @@ public class WebNode {
 		return retVal;
 	}
 
+	public boolean isTheLastChild() {
+		if (this.parent == null)
+			return true;
+		ArrayList<WebNode> siblings = this.parent.children;
+
+		return this.equals(siblings.get(siblings.size() - 1));
+	}
 
 }
