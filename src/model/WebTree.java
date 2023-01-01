@@ -30,11 +30,38 @@ public class WebTree {
 			String link = linkMatcher.group(1);
 			if (!visitedLinks.contains(link)) {
 				visitedLinks.add(link);
-				WebNode child = new WebNode(new WebPage(link, "content"));
+				WebNode child = new WebNode(new WebPage(link));
 			    tree.addChild(node, child);
 			    createTree(child, depth + 1);
 			}
 		}
 		return tree;
+	}
+
+	private String repeat(String str, int repeat){
+		String retVal = "";
+		for(int i = 0; i < repeat; i++){
+			retVal += str;
+		}
+		return retVal;
+	}
+
+	public void eularPrintTree(WebNode startNode){
+		int nodeDepth = startNode.getDepth();
+
+		if(nodeDepth > 1) System.out.print("\n" + repeat("\t", nodeDepth-1));
+
+		System.out.print("(");
+		System.out.print(startNode.page.url);
+
+		// print child via pre-order
+		for(WebNode child : startNode.children){
+			eularPrintTree(child);
+		}
+
+		System.out.print(")");
+
+		if(startNode.isTheLastChild()) System.out.print("\n" + repeat("\t", nodeDepth-2));
+
 	}
 }

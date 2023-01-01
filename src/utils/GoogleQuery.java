@@ -5,12 +5,7 @@
 
 package utils;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.HashMap;
 
 import org.jsoup.Jsoup;
@@ -35,28 +30,9 @@ public class GoogleQuery {
 		this.url = "http://www.google.com/search?q=" + temp + "&oe=utf8&num=20";
 	}
 
-	private String fetchContent() throws IOException {
-		String retVal = "";
-
-		URL u = new URL(url);
-		URLConnection conn = u.openConnection();
-		// set HTTP header
-		conn.setRequestProperty("User-agent", "Chrome/107.0.5304.107");
-		InputStream in = conn.getInputStream();
-
-		InputStreamReader inReader = new InputStreamReader(in, "utf-8");
-		BufferedReader bufReader = new BufferedReader(inReader);
-		String line = null;
-
-		while ((line = bufReader.readLine()) != null) {
-			retVal += line;
-		}
-		return retVal;
-	}
-
 	public HashMap<String, String> query() throws IOException {
 		if (content == null) {
-			content = fetchContent();
+			content = Scrapper.fetchContent(this.url);
 		}
 
 		HashMap<String, String> retVal = new HashMap<String, String>();
@@ -71,7 +47,7 @@ public class GoogleQuery {
 		for (Element li : lis) {
 			try {
 				String citeUrl = li.select("a").get(0).attr("href");
-				String title = li.select("a").get(0).select(".vvjwJb").text();
+				String title = li.select("a").get(0).select(".vvjwJb").text().replaceFirst("^/url?q=", "");
 
 				if (title.equals("")) {
 					continue;
