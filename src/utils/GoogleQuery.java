@@ -46,8 +46,8 @@ public class GoogleQuery {
 
 		for (Element li : lis) {
 			try {
-				String citeUrl = li.select("a").get(0).attr("href");
-				String title = li.select("a").get(0).select(".vvjwJb").text().replaceFirst("^/url?q=", "");
+				String citeUrl = li.select("a").get(0).attr("href").replaceFirst("^/url?q=", "");
+				String title = li.select("a").get(0).select(".vvjwJb").text();
 
 				if (title.equals("")) {
 					continue;
