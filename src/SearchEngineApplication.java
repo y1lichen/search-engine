@@ -21,12 +21,11 @@ class SearchEngineApplication {
 			for (String url: baseUrls.values()) {
 				WebNode node = new WebNode(new WebPage(url));
 				trees.add(WebTree.createTree(node, 0));
-				System.out.println(url);
 				//
-				// for (int i=0; i<trees.size(); i++) {
-				// 	WebTree tree = trees.get(i);
-				// 	tree.eularPrintTree(tree.root);
-				// }
+				for (int i=0; i<trees.size(); i++) {
+					WebTree tree = trees.get(i);
+					tree.eularPrintTree(tree.root);
+				}
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
