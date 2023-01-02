@@ -22,10 +22,10 @@ class SearchEngineApplication {
 				WebNode node = new WebNode(new WebPage(url));
 				trees.add(WebTree.createTree(node, 0));
 				//
-				for (int i=0; i<trees.size(); i++) {
-					WebTree tree = trees.get(i);
-					tree.eularPrintTree(tree.root);
-				}
+				// for (int i=0; i<trees.size(); i++) {
+				// 	WebTree tree = trees.get(i);
+				// 	tree.eularPrintTree(tree.root);
+				// }
 			}
 		} catch (IOException e) {
 			e.printStackTrace();

@@ -6,6 +6,7 @@
 package utils;
 
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.util.HashMap;
 
 import org.jsoup.Jsoup;
@@ -41,19 +42,23 @@ public class GoogleQuery {
 		Document doc = Jsoup.parse(content);
 
 		// select particular element(tag) which you want
+
 		Elements lis = doc.select("div");
 		lis = lis.select(".kCrYT");
 
 		for (Element li : lis) {
 			try {
-				String citeUrl = li.select("a").get(0).attr("href").replaceFirst("^/url?q=", "");
+				// String citeUrl = li.select("a").get(0).attr("href");
+				String citeUrl = li.select("a").get(0).attr("href").split("&")[0];
+				int startIndexOfUrl = citeUrl.indexOf("http");
+				citeUrl = citeUrl.substring(startIndexOfUrl);
+				System.out.println("test "+citeUrl);
+				// citeUrl = URLDecoder.decode(citeUrl, "UTF-8");
 				String title = li.select("a").get(0).select(".vvjwJb").text();
 
 				if (title.equals("")) {
 					continue;
 				}
-
-				// System.out.println("Title: " + title + " , url: " + citeUrl);
 
 				// put title and pair into HashMap
 				retVal.put(title, citeUrl);

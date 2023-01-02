@@ -14,12 +14,8 @@ public class WebNode {
 
 	public WebNode(WebPage page) {
 		this.page = page;
-<<<<<<< Updated upstream
 		this.children = new ArrayList<>();
 		left = right = null;
-=======
-		this.children = new HashSet<>();
->>>>>>> Stashed changes
 	}
 
 	public void addChild(WebNode child) {
