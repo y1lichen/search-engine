@@ -49,11 +49,11 @@ public class GoogleQuery {
 		for (Element li : lis) {
 			try {
 				// String citeUrl = li.select("a").get(0).attr("href");
+				// 移掉奇怪的前綴和後綴
 				String citeUrl = li.select("a").get(0).attr("href").split("&")[0];
 				int startIndexOfUrl = citeUrl.indexOf("http");
 				citeUrl = citeUrl.substring(startIndexOfUrl);
-				System.out.println("test "+citeUrl);
-				// citeUrl = URLDecoder.decode(citeUrl, "UTF-8");
+				//
 				String title = li.select("a").get(0).select(".vvjwJb").text();
 
 				if (title.equals("")) {
