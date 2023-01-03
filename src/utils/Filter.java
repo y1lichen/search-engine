@@ -5,10 +5,11 @@ import java.util.ArrayList;
 import model.Keyword;
 
 public class Filter {
-	int time = 1;
 	ArrayList<Keyword> keywordsList;
+	String content;
 
-	public Filter() {
+	public Filter(String content) {
+		this.content = content;
 		this.keywordsList = new ArrayList<>();
 		initKeywordsList();
 	}
@@ -33,6 +34,24 @@ public class Filter {
 		keywordsList.add(new Keyword("book", 5));
 		keywordsList.add(new Keyword("books", 5));
 		keywordsList.add(new Keyword("language", 3));
+	}
+
+	public int countKeyword(String keyword) {
+		// To do a case-insensitive search, we turn the whole content and keyword into
+		// upper-case:
+		content = content.toUpperCase();
+		keyword = keyword.toUpperCase();
+
+		int retVal = 0;
+		int fromIdx = 0;
+		int found = -1;
+
+		while ((found = content.indexOf(keyword, fromIdx)) != -1) {
+			retVal++;
+			fromIdx = found + keyword.length();
+		}
+
+		return retVal;
 	}
 
 }

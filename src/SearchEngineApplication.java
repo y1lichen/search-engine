@@ -9,26 +9,24 @@ import utils.GoogleQuery;
 
 class SearchEngineApplication {
 	public static ArrayList<WebTree> trees = new ArrayList<>();
-	public static void main(String[] args) {
+
+	public static void main(String[] args) throws IOException {
 		String keyword = "data structure";
 		callGoogle(keyword);
 	}
 
-	public static void callGoogle(String keyword) {
+	public static void callGoogle(String keyword) throws IOException {
 		GoogleQuery googleQuery = new GoogleQuery(keyword);
-		try {
-			HashMap<String, String> baseUrls = googleQuery.query();
-			for (String url: baseUrls.values()) {
-				WebNode node = new WebNode(new WebPage(url));
+		HashMap<String, String> baseUrls = googleQuery.query();
+		for (String url : baseUrls.values()) {
+			WebNode node = new WebNode(new WebPage(url));
 			trees.add(WebTree.createTree(node, 0));
-				//
-				// for (int i=0; i<trees.size(); i++) {
-				// 	WebTree tree = trees.get(i);
-				// 	tree.eularPrintTree(tree.root);
-				// }
+			//
+			for (int i = 0; i < trees.size(); i++) {
+				System.out.println("tree" + i);
+				WebTree tree = trees.get(i);
+				tree.eularPrintTree(tree.root);
 			}
-		} catch (Exception e) {
-			// e.printStackTrace();
 		}
 	}
 }
