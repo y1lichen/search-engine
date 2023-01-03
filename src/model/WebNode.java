@@ -44,7 +44,7 @@ public class WebNode {
 	public void setNodeScore(ArrayList<Keyword> keywords) {
 
 		page.setScore(keywords);
-		// **set webPage score to nodeScore
+		// set webPage score to nodeScore
 		score = page.score;
 		for (WebNode child : children) {
 			child.setNodeScore(keywords);

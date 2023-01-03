@@ -7,6 +7,8 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import utils.Validator;
+
 public class WebTree {
 	public WebNode root;
 
@@ -25,7 +27,7 @@ public class WebTree {
 		startNode.setNodeScore(keywords);
 	}
 
-	public static WebTree createTree(WebNode node, int depth) {
+	public static WebTree createTree(WebNode node, int depth) throws IOException {
 		WebTree tree = new WebTree(node);
 		if (depth > 3) {
 			return tree;
@@ -38,6 +40,9 @@ public class WebTree {
 		while (linkMatcher.find()) {
 			String link = linkMatcher.group(1);
 			if (!visitedLinks.contains(link)) {
+				if (!Validator.isValidURL(link)) {
+					continue;
+				}
 				visitedLinks.add(link);
 				WebNode child = new WebNode(new WebPage(link));
 				tree.addChild(node, child);
@@ -62,6 +67,8 @@ public class WebTree {
 			System.out.print("\n" + repeat("\t", nodeDepth - 1));
 
 		System.out.print("(");
+		System.out.print(startNode.score);
+		System.out.print("|");
 		System.out.print(startNode.page.url);
 
 		// print child via pre-order
