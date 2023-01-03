@@ -6,7 +6,6 @@
 package utils;
 
 import java.io.IOException;
-import java.net.URLDecoder;
 import java.util.HashMap;
 
 import org.jsoup.Jsoup;
@@ -50,9 +49,10 @@ public class GoogleQuery {
 			try {
 				// String citeUrl = li.select("a").get(0).attr("href");
 				// 移掉奇怪的前綴和後綴
-				String citeUrl = li.select("a").get(0).attr("href").split("&")[0];
+				String citeUrl = li.select("a").get(0).attr("href");
 				int startIndexOfUrl = citeUrl.indexOf("http");
-				citeUrl = citeUrl.substring(startIndexOfUrl);
+				int endIndexOfUrl = citeUrl.indexOf("&sa=U&ved=2ah");
+				citeUrl = citeUrl.substring(startIndexOfUrl, endIndexOfUrl);
 				//
 				String title = li.select("a").get(0).select(".vvjwJb").text();
 
