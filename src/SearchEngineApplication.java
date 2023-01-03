@@ -20,15 +20,15 @@ class SearchEngineApplication {
 			HashMap<String, String> baseUrls = googleQuery.query();
 			for (String url: baseUrls.values()) {
 				WebNode node = new WebNode(new WebPage(url));
-				trees.add(WebTree.createTree(node, 0));
+			trees.add(WebTree.createTree(node, 0));
 				//
 				// for (int i=0; i<trees.size(); i++) {
 				// 	WebTree tree = trees.get(i);
 				// 	tree.eularPrintTree(tree.root);
 				// }
 			}
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (Exception e) {
+			// e.printStackTrace();
 		}
 	}
 }
