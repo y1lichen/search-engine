@@ -6,15 +6,15 @@ import java.util.LinkedHashMap;
 import model.WebNode;
 import model.WebPage;
 import model.WebTree;
+import utils.Filter;
 import utils.GoogleQuery;
 
 class SearchEngineApplication {
-	public static ArrayList<WebTree> trees = new ArrayList<>();
 
 	public static void main(String[] args) throws IOException {
 		String keyword = "data structure" + "book";
 		callGoogle(keyword);
-		for (WebTree tree: trees) {
+		for (WebTree tree: Filter.trees) {
 			System.out.println(tree.root.score + "|" + tree.root.page.url);
 		}
 	}
@@ -27,10 +27,11 @@ class SearchEngineApplication {
 			WebTree tree = new WebTree(root);
 			tree.createTree(root, 0);
 			tree.setPostOrderScore(root);
-			trees.add(tree);
-			System.out.println("created");
+			Filter.trees.add(tree);
 		}
+		Filter.quickSort(0, Filter.trees.size()-1);
+		System.out.println(Filter.trees);
 		HashMap<String, String> sortedHasMap = new LinkedHashMap<>();
-		return baseUrls;
+		return sortedHasMap;
 	}
 }

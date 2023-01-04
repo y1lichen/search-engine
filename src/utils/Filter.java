@@ -3,8 +3,12 @@ package utils;
 import java.util.ArrayList;
 
 import model.Keyword;
+import model.WebNode;
+import model.WebTree;
 
 public class Filter {
+	public static ArrayList<WebTree> trees = new ArrayList<>();
+
 	ArrayList<Keyword> keywordsList;
 	String content;
 
@@ -87,6 +91,32 @@ public class Filter {
 		}
 
 		return retVal;
+	}
+
+	private static void swap(int aIndex, int bIndex) {
+		WebTree temp = trees.get(aIndex);
+		trees.set(aIndex, trees.get(bIndex));
+		trees.set(bIndex, temp);
+	}
+
+	public static void quickSort(int left, int right) {
+		if (left < right) {
+			int q = partition(left, right);
+			quickSort(left, q - 1);
+			quickSort(q + 1, right);
+		}
+	}
+
+	private static int partition(int left, int right) {
+		int i = left - 1;
+		for (int j = left; j < right; j++) {
+			if (trees.get(j).root.score >= trees.get(right).root.score) {
+				i++;
+				swap(i, j);
+			}
+		}
+		swap(i + 1, right);
+		return i + 1;
 	}
 
 }
