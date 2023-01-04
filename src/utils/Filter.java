@@ -15,6 +15,15 @@ public class Filter {
 	}
 
 	public void initKeywordsList() {
+		keywordsList.add(new Keyword("$", 2));
+		keywordsList.add(new Keyword("cart", 2));
+		keywordsList.add(new Keyword("購物車", 2));
+		keywordsList.add(new Keyword("售價", 2));
+		keywordsList.add(new Keyword("price", 2));
+		keywordsList.add(new Keyword("ships", 8));
+		keywordsList.add(new Keyword("ship", 8));
+		keywordsList.add(new Keyword("delivery", 8));
+		keywordsList.add(new Keyword("宅配", 8));
 		keywordsList.add(new Keyword("cart", 2));
 		keywordsList.add(new Keyword("購物車", 2));
 		keywordsList.add(new Keyword("售價", 2));
@@ -55,14 +64,14 @@ public class Filter {
 	}
 
 	public int getScore() {
-        int score = 0;
-        for (Keyword k : keywordsList) {
-            score += countKeyword(k.getName()) * k.getWeight();
-        }
+		int score = 0;
+		for (Keyword k : keywordsList) {
+			score += countKeyword(k.getName()) * k.getWeight();
+		}
 		return score;
 	}
 
-	private int countKeyword(String keyword) {
+	public int countKeyword(String keyword) {
 		// To do a case-insensitive search, we turn the whole content and keyword into
 		// upper-case:
 		content = content.toUpperCase();
@@ -79,32 +88,5 @@ public class Filter {
 
 		return retVal;
 	}
-
-	public void swap(int aIndex, int bIndex) {
-		WebNode temp = console.get(aIndex);
-		console.set(aIndex, console.get(bIndex));
-		console.set(bIndex, temp);
-	}
-
-	private void quickSort(int left, int right) {
-		if (left < right) {
-			int q = partition(left, right);
-			quickSort(left, q - 1);
-			quickSort(q + 1, right);
-		}
-	}
-
-	private int partition(int left, int right) {
-		int i = left - 1;
-		for (int j = left; j < right; j++) {
-			if (console.get(j).webPage.getScore() >= console.get(right).webPage.getScore()) {
-				i++;
-				swap(i, j);
-			}
-		}
-		swap(i + 1, right);
-		return i + 1;
-	}
-
 
 }

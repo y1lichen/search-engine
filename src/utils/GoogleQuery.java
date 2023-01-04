@@ -26,7 +26,7 @@ public class GoogleQuery {
 
 	public GoogleQuery(String searchKeyword) {
 		String temp = reformatKeyword(searchKeyword);
-		String num = "30";
+		String num = "10";
 		this.searchKeyword = temp;
 		this.url = "http://www.google.com/search?q=" + temp + "&oe=utf8&num=" + num;
 	}
@@ -48,7 +48,6 @@ public class GoogleQuery {
 
 		for (Element li : lis) {
 			try {
-				// String citeUrl = li.select("a").get(0).attr("href");
 				// 移掉奇怪的前綴和後綴
 				String citeUrl = li.select("a").get(0).attr("href");
 				int startIndexOfUrl = citeUrl.indexOf("http");
