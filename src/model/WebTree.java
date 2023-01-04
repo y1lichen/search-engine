@@ -7,8 +7,6 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import utils.Validator;
-
 public class WebTree {
 	public WebNode root;
 
@@ -27,28 +25,31 @@ public class WebTree {
 		startNode.setNodeScore(keywords);
 	}
 
-	public static WebTree createTree(WebNode node, int depth) throws IOException {
+	public static WebTree createTree(WebNode node, int depth, int totalNodes) {
 		WebTree tree = new WebTree(node);
-		if (depth > 3) {
+		if (depth > 1 || totalNodes >= 5) {
 			return tree;
 		}
 		String resourcecode = node.page.content;
+		if (resourcecode == null ||  resourcecode.isEmpty()) {
+			return tree;
+		}
 		Set<String> visitedLinks = new HashSet<>();
 		Pattern linkPattern = Pattern.compile("href=\"(.+?)\"");
 		Matcher linkMatcher = linkPattern.matcher(resourcecode);
+		int temp = totalNodes;
 
 		while (linkMatcher.find()) {
 			String link = linkMatcher.group(1);
 			if (!visitedLinks.contains(link)) {
-				if (!Validator.isValidURL(link)) {
-					continue;
-				}
+				temp += 1;
 				visitedLinks.add(link);
 				WebNode child = new WebNode(new WebPage(link));
 				tree.addChild(node, child);
-				createTree(child, depth + 1);
+				createTree(child, depth + 1, temp);
 			}
 		}
+		System.out.println("created");
 		return tree;
 	}
 
@@ -70,6 +71,7 @@ public class WebTree {
 		System.out.print(startNode.score);
 		System.out.print("|");
 		System.out.print(startNode.page.url);
+		System.out.println(")");
 
 		// print child via pre-order
 		for (WebNode child : startNode.children) {

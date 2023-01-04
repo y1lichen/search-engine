@@ -20,7 +20,7 @@ class SearchEngineApplication {
 		HashMap<String, String> baseUrls = googleQuery.query();
 		for (String url : baseUrls.values()) {
 			WebNode node = new WebNode(new WebPage(url));
-			trees.add(WebTree.createTree(node, 0));
+			trees.add(WebTree.createTree(node, 0, 1));
 			//
 			for (int i = 0; i < trees.size(); i++) {
 				System.out.println("tree" + i);
