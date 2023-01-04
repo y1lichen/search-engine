@@ -15,6 +15,14 @@ public class Filter {
 	}
 
 	public void initKeywordsList() {
+		keywordsList.add(new Keyword("cart", 2));
+		keywordsList.add(new Keyword("購物車", 2));
+		keywordsList.add(new Keyword("售價", 2));
+		keywordsList.add(new Keyword("price", 2));
+		keywordsList.add(new Keyword("ships", 8));
+		keywordsList.add(new Keyword("ship", 8));
+		keywordsList.add(new Keyword("delivery", 8));
+		keywordsList.add(new Keyword("宅配", 8));
 		keywordsList.add(new Keyword("publisher", 10));
 		keywordsList.add(new Keyword("出版商", 10));
 		keywordsList.add(new Keyword("出版社", 10));
@@ -36,14 +44,14 @@ public class Filter {
 		keywordsList.add(new Keyword("mirror", 8));
 		keywordsList.add(new Keyword("mirrors", 8));
 		keywordsList.add(new Keyword("library", 8));
-		keywordsList.add(new Keyword("extension", 7));
-		keywordsList.add(new Keyword("頁數", 6));
+		keywordsList.add(new Keyword("extension", 3));
+		keywordsList.add(new Keyword("頁數", 10));
 		keywordsList.add(new Keyword("page", 6));
 		keywordsList.add(new Keyword("pages", 6));
 		keywordsList.add(new Keyword("book", 5));
 		keywordsList.add(new Keyword("books", 5));
-		keywordsList.add(new Keyword("語言", 3));
-		keywordsList.add(new Keyword("language", 3));
+		keywordsList.add(new Keyword("語言", 7));
+		keywordsList.add(new Keyword("language", 7));
 	}
 
 	public int getScore() {
@@ -71,5 +79,32 @@ public class Filter {
 
 		return retVal;
 	}
+
+	public void swap(int aIndex, int bIndex) {
+		WebNode temp = console.get(aIndex);
+		console.set(aIndex, console.get(bIndex));
+		console.set(bIndex, temp);
+	}
+
+	private void quickSort(int left, int right) {
+		if (left < right) {
+			int q = partition(left, right);
+			quickSort(left, q - 1);
+			quickSort(q + 1, right);
+		}
+	}
+
+	private int partition(int left, int right) {
+		int i = left - 1;
+		for (int j = left; j < right; j++) {
+			if (console.get(j).webPage.getScore() >= console.get(right).webPage.getScore()) {
+				i++;
+				swap(i, j);
+			}
+		}
+		swap(i + 1, right);
+		return i + 1;
+	}
+
 
 }
