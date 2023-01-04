@@ -26,8 +26,9 @@ public class GoogleQuery {
 
 	public GoogleQuery(String searchKeyword) {
 		String temp = reformatKeyword(searchKeyword);
+		String num = "30";
 		this.searchKeyword = temp;
-		this.url = "http://www.google.com/search?q=" + temp + "&oe=utf8&num=20";
+		this.url = "http://www.google.com/search?q=" + temp + "&oe=utf8&num=" + num;
 	}
 
 	public HashMap<String, String> query() throws IOException {

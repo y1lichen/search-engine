@@ -4,13 +4,15 @@ import utils.Filter;
 import utils.Scrapper;
 
 public class WebPage {
+    public String title;
     public String url;
     public String content;
     public double score;
     public Filter filter;
 
-    public WebPage(String url) {
+    public WebPage(String title, String url) {
         try {
+            this.title = title;
             this.url = url;
             this.content = Scrapper.fetchContent(url);
             this.score = 0;

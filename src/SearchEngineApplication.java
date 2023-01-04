@@ -10,6 +10,19 @@ import utils.GoogleQuery;
 class SearchEngineApplication {
 	public static ArrayList<WebTree> trees = new ArrayList<>();
 
+	public static WebTree tree;
+
+	public static void createTree(ArrayList<WebPage> pages) {
+		for (WebPage page: pages) {
+			WebNode child = new WebNode(page);
+			tree.root.addChild(child);
+			System.out.println(page.title + "|" + page.url);	
+		}
+		tree.setPostOrderScore(tree.root);
+		// tree.eularPrintTree(tree.root);
+	}
+
+
 	public static void main(String[] args) throws IOException {
 		String keyword = "data structure";
 		callGoogle(keyword);
@@ -18,15 +31,12 @@ class SearchEngineApplication {
 	public static void callGoogle(String keyword) throws IOException {
 		GoogleQuery googleQuery = new GoogleQuery(keyword);
 		HashMap<String, String> baseUrls = googleQuery.query();
-		for (String url : baseUrls.values()) {
-			WebNode node = new WebNode(new WebPage(url));
-			trees.add(WebTree.createTree(node, 0, 1));
-			//
-			for (int i = 0; i < trees.size(); i++) {
-				System.out.println("tree" + i);
-				WebTree tree = trees.get(i);
-				tree.eularPrintTree(tree.root);
-			}
+		ArrayList<WebPage> pages = new ArrayList<>();
+		for (String webTitle: baseUrls.keySet()) {
+			pages.add(new WebPage(webTitle, baseUrls.get(webTitle)));
 		}
+		createTree(pages);	
+		tree.setPostOrderScore(tree.root);
+		tree.eularPrintTree(tree.root);
 	}
 }
