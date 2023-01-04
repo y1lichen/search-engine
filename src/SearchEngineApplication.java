@@ -22,7 +22,6 @@ class SearchEngineApplication {
 		// tree.eularPrintTree(tree.root);
 	}
 
-
 	public static void main(String[] args) throws IOException {
 		String keyword = "data structure";
 		callGoogle(keyword);
@@ -35,6 +34,7 @@ class SearchEngineApplication {
 		for (String webTitle: baseUrls.keySet()) {
 			pages.add(new WebPage(webTitle, baseUrls.get(webTitle)));
 		}
+		tree = new WebTree(new WebNode(new WebPage("root", "root")));
 		createTree(pages);	
 		tree.setPostOrderScore(tree.root);
 		tree.eularPrintTree(tree.root);
