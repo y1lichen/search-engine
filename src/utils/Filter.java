@@ -46,7 +46,15 @@ public class Filter {
 		keywordsList.add(new Keyword("language", 3));
 	}
 
-	public int countKeyword(String keyword) {
+	public int getScore() {
+        int score = 0;
+        for (Keyword k : keywordsList) {
+            score += countKeyword(k.getName()) * k.getWeight();
+        }
+		return score;
+	}
+
+	private int countKeyword(String keyword) {
 		// To do a case-insensitive search, we turn the whole content and keyword into
 		// upper-case:
 		content = content.toUpperCase();

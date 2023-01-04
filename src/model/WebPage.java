@@ -1,7 +1,5 @@
 package model;
 
-import java.util.ArrayList;
-
 import utils.Filter;
 import utils.Scrapper;
 
@@ -21,10 +19,9 @@ public class WebPage {
         }
     }
 
-    public void setScore(ArrayList<Keyword> keywords) {
-        score = 0;
-        for (Keyword k : keywords) {
-            score += filter.countKeyword(k.name) * k.weight;
+    public void setScore() {
+        if (filter != null) {
+            this.score = filter.getScore();
         }
     }
 }

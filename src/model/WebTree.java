@@ -1,7 +1,5 @@
 package model;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -18,16 +16,16 @@ public class WebTree {
 		parent.addChild(child);
 	}
 
-	private void setPostOrderScore(WebNode startNode, ArrayList<Keyword> keywords) throws IOException {
+	private static void setPostOrderScore(WebNode startNode) {
 		for (WebNode child : startNode.children) {
-			child.setNodeScore(keywords);
+			child.setNodeScore();
 		}
-		startNode.setNodeScore(keywords);
+		startNode.setNodeScore();
 	}
 
 	public static WebTree createTree(WebNode node, int depth, int totalNodes) {
 		WebTree tree = new WebTree(node);
-		if (depth > 1 || totalNodes >= 5) {
+		if (depth > 1 || totalNodes >= 15) {
 			return tree;
 		}
 		String resourcecode = node.page.content;
@@ -49,6 +47,7 @@ public class WebTree {
 				createTree(child, depth + 1, temp);
 			}
 		}
+		setPostOrderScore(node);
 		System.out.println("created");
 		return tree;
 	}
@@ -62,26 +61,17 @@ public class WebTree {
 	}
 
 	public void eularPrintTree(WebNode startNode) {
-		int nodeDepth = startNode.getDepth();
-
-		if (nodeDepth > 1)
-			System.out.print("\n" + repeat("\t", nodeDepth - 1));
 
 		System.out.print("(");
 		System.out.print(startNode.score);
 		System.out.print("|");
 		System.out.print(startNode.page.url);
-		System.out.println(")");
 
 		// print child via pre-order
 		for (WebNode child : startNode.children) {
 			eularPrintTree(child);
 		}
-
 		System.out.print(")");
-
-		if (startNode.isTheLastChild())
-			System.out.print("\n" + repeat("\t", nodeDepth - 2));
 
 	}
 }

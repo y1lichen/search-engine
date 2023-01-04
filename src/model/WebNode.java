@@ -41,13 +41,13 @@ public class WebNode {
 		return this.equals(siblings.get(siblings.size() - 1));
 	}
 
-	public void setNodeScore(ArrayList<Keyword> keywords) {
+	public void setNodeScore() {
 
-		page.setScore(keywords);
+		page.setScore();
 		// set webPage score to nodeScore
 		score = page.score;
 		for (WebNode child : children) {
-			child.setNodeScore(keywords);
+			child.setNodeScore();
 			score += child.score;
 		}
 	}
