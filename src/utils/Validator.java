@@ -12,7 +12,7 @@ public class Validator {
         } catch (MalformedURLException | URISyntaxException e) {
             return false;
         }
-    
+
         return true;
     }
 }

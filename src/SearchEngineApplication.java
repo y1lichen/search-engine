@@ -16,7 +16,7 @@ class SearchEngineApplication {
 		for (WebPage page: pages) {
 			WebNode child = new WebNode(page);
 			tree.root.addChild(child);
-			System.out.println(page.title + "|" + page.url);	
+			System.out.println(page.title + "|" + page.url);
 		}
 		tree.setPostOrderScore(tree.root);
 		// tree.eularPrintTree(tree.root);
@@ -27,7 +27,7 @@ class SearchEngineApplication {
 		callGoogle(keyword);
 	}
 
-	public static void callGoogle(String keyword) throws IOException {
+	public static HashMap<String, String> callGoogle(String keyword) throws IOException {
 		GoogleQuery googleQuery = new GoogleQuery(keyword);
 		HashMap<String, String> baseUrls = googleQuery.query();
 		ArrayList<WebPage> pages = new ArrayList<>();
@@ -35,8 +35,9 @@ class SearchEngineApplication {
 			pages.add(new WebPage(webTitle, baseUrls.get(webTitle)));
 		}
 		tree = new WebTree(new WebNode(new WebPage("root", "root")));
-		createTree(pages);	
+		createTree(pages);
 		tree.setPostOrderScore(tree.root);
 		tree.eularPrintTree(tree.root);
+		return baseUrls;
 	}
 }
