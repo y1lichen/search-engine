@@ -6,6 +6,8 @@
 package utils;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.HashMap;
 
 import org.jsoup.Jsoup;
@@ -53,6 +55,7 @@ public class GoogleQuery {
 				int startIndexOfUrl = citeUrl.indexOf("http");
 				int endIndexOfUrl = citeUrl.indexOf("&sa=U&ved=2ah");
 				citeUrl = citeUrl.substring(startIndexOfUrl, endIndexOfUrl);
+				citeUrl = URLDecoder.decode(citeUrl, "UTF-8");
 				//
 				String title = li.select("a").get(0).select(".vvjwJb").text();
 
@@ -63,7 +66,7 @@ public class GoogleQuery {
 				// put title and pair into HashMap
 				retVal.put(title, citeUrl);
 
-			} catch (IndexOutOfBoundsException e) {
+			} catch (IndexOutOfBoundsException | UnsupportedEncodingException e) {
 				// e.printStackTrace();
 			}
 		}

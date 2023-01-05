@@ -1,5 +1,6 @@
+package main;
+
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
@@ -9,7 +10,7 @@ import model.WebTree;
 import utils.Filter;
 import utils.GoogleQuery;
 
-class SearchEngineApplication {
+public class SearchEngineApplication {
 
 	public static void main(String[] args) throws IOException {
 		String keyword = "data structure" + "book";
