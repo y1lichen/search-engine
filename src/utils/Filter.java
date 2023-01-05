@@ -1,24 +1,24 @@
 package utils;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import model.Keyword;
-import model.WebNode;
 import model.WebTree;
 
 public class Filter {
 	public static ArrayList<WebTree> trees = new ArrayList<>();
 
-	ArrayList<Keyword> keywordsList;
+	public static Set<Keyword> keywordsList = initKeywordsList();
 	String content;
 
 	public Filter(String content) {
 		this.content = content;
-		this.keywordsList = new ArrayList<>();
-		initKeywordsList();
 	}
 
-	public void initKeywordsList() {
+	public static Set<Keyword> initKeywordsList() {
+		Set<Keyword> keywordsList = new HashSet<>();
 		keywordsList.add(new Keyword("$", 2));
 		keywordsList.add(new Keyword("cart", 2));
 		keywordsList.add(new Keyword("購物車", 2));
@@ -65,6 +65,7 @@ public class Filter {
 		keywordsList.add(new Keyword("books", 5));
 		keywordsList.add(new Keyword("語言", 7));
 		keywordsList.add(new Keyword("language", 7));
+		return keywordsList;
 	}
 
 	public int getScore() {

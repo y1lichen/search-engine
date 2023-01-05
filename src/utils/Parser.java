@@ -1,19 +1,43 @@
 package utils;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Stack;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+import model.Keyword;
 
 public class Parser {
 	String content;
-	ArrayList<String> h1List = new ArrayList<>();
-	ArrayList<String> h2List = new ArrayList<>();
-	ArrayList<String> h3List = new ArrayList<>();
-	ArrayList<String> h4List = new ArrayList<>();
-	ArrayList<String> h5List = new ArrayList<>();
+	Document doc;
 
 	public Parser(String content) {
 		this.content = content;
+		this.doc = Jsoup.parse(content);
+	}
+
+	public int getExtraPoint() {
+		int total = 0;
+		total += getExtraPointOfSpecificTag("h1", 3);
+		total += getExtraPointOfSpecificTag("h2", 2);
+		total += getExtraPointOfSpecificTag("h3", 1);
+		return total;
+	}
+
+	private int getExtraPointOfSpecificTag(String tagName, int weight) {
+		int score = 0;
+		Elements elements = doc.select(tagName);
+		for (Element element : elements) {
+			for (Keyword k: Filter.keywordsList) {
+				if (element.text().equals(k.getName())) {
+					score += (weight * k.getWeight());
+				}
+			}
+		}
+		return score;
 	}
 
 	public void match() throws IOException {

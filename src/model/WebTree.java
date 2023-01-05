@@ -1,5 +1,8 @@
 package model;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -38,14 +41,18 @@ public class WebTree {
 		int countOfATags = 0;
 		for (Element atag : a) {
 			String url = atag.attr("href");
-			if (Validator.isValidURL(url)) {
-				countOfATags += 1;
-				WebPage newPage = new WebPage("subpage", url);
-				WebNode newNode = new WebNode(newPage);
-				node.addChild(newNode);
-			}
-			if (countOfATags >= 4) {
-				return;
+			try {
+				url = URLDecoder.decode(url, "UTF-8");
+				if (Validator.isValidURL(url)) {
+					countOfATags += 1;
+					WebPage newPage = new WebPage("subpage", url);
+					WebNode newNode = new WebNode(newPage);
+					node.addChild(newNode);
+				}
+				if (countOfATags >= 4) {
+					return;
+				}
+			} catch (UnsupportedEncodingException e) {
 			}
 		}
 		// Set<String> visitedLinks = new HashSet<>();

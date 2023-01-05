@@ -1,9 +1,10 @@
-package controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,14 +13,17 @@ import javax.servlet.http.HttpServletResponse;
 
 import main.SearchEngineApplication;
 
-@WebServlet("/search")
-public class RequestController extends HttpServlet {
+/**
+ * Servlet implementation class TestProject
+ */
+@WebServlet("/TestProject")
+public class TestProject extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public RequestController() {
+	public TestProject() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -34,14 +38,15 @@ public class RequestController extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html");
-		String keyword = request.getParameter("keyword");
-		if (keyword == null) {
+		if (request.getParameter("keyword") == null) {
 			String requestUri = request.getRequestURI();
 			request.setAttribute("requestUri", requestUri);
 			request.getRequestDispatcher("Search.jsp").forward(request, response);
 			return;
 		}
-		HashMap<String, String> query = SearchEngineApplication.callGoogle(keyword);
+
+		HashMap<String, String> query = SearchEngineApplication.callGoogle(request.getParameter("keyword"));
+
 		String[][] s = new String[query.size()][2];
 		request.setAttribute("query", s);
 		int num = 0;
@@ -65,4 +70,5 @@ public class RequestController extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
+
 }
