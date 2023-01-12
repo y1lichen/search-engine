@@ -82,7 +82,6 @@ public class GoogleQuery {
 			content = Scrapper.fetchContent(this.url);
 		}
 		Document doc = Jsoup.parse(content);
-		System.out.println(content);
 		Elements elements = doc.select("div.BNeawe.s3v9rd.AP7Wnd.lRVwie");
 		for (Element element: elements) {
 			result.add(element.getAllElements().first().text());
