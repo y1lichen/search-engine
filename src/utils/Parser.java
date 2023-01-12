@@ -27,6 +27,11 @@ public class Parser {
 		return total;
 	}
 
+	public int getCountOfVedio() {
+		Elements elements = doc.select("vedio");
+		return elements.size();	
+	}
+
 	private int getExtraPointOfSpecificTag(String tagName, int weight) {
 		int score = 0;
 		Elements elements = doc.select(tagName);

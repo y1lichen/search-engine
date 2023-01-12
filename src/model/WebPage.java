@@ -28,6 +28,7 @@ public class WebPage {
         if (filter != null) {
             this.score = filter.getScore();
             this.score += parser.getExtraPoint();
+            this.score -= parser.getCountOfVedio() * 1000;
         }
     }
 }

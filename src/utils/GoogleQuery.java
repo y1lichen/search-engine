@@ -8,7 +8,9 @@ package utils;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -22,13 +24,13 @@ public class GoogleQuery {
 
 	// 把輸入的keyword改成get method的參數樣子
 	public static String reformatKeyword(String keyword) {
-		String result = keyword.replace(" ", "%");
+		String result = keyword.replace(" ", "+");
 		return result;
 	}
 
 	public GoogleQuery(String searchKeyword) {
 		String temp = reformatKeyword(searchKeyword);
-		String num = "10";
+		String num = "15";
 		this.searchKeyword = temp;
 		this.url = "http://www.google.com/search?q=" + temp + "&oe=utf8&num=" + num;
 	}
@@ -71,5 +73,20 @@ public class GoogleQuery {
 			}
 		}
 		return retVal;
+	}
+
+	// 相關關鍵字
+	public List<String> getRelatedKeyword() throws IOException {
+		ArrayList<String> result = new ArrayList<>();
+		if (content == null) {
+			content = Scrapper.fetchContent(this.url);
+		}
+		Document doc = Jsoup.parse(content);
+		System.out.println(content);
+		Elements elements = doc.select("div.BNeawe.s3v9rd.AP7Wnd.lRVwie");
+		for (Element element: elements) {
+			result.add(element.getAllElements().first().text());
+		}
+		return result;
 	}
 }
