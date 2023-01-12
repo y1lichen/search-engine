@@ -8,7 +8,9 @@ package utils;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -71,5 +73,19 @@ public class GoogleQuery {
 			}
 		}
 		return retVal;
+	}
+
+	public List<String> getRelatedKeyword() throws IOException {
+		ArrayList<String> result = new ArrayList<>();
+		if (content == null) {
+			content = Scrapper.fetchContent(this.url);
+		}
+		Document doc = Jsoup.parse(content);
+		System.out.println(content);
+		Elements elements = doc.select("div.BNeawe.s3v9rd.AP7Wnd.lRVwie");
+		for (Element element: elements) {
+			result.add(element.getAllElements().first().text());
+		}
+		return result;
 	}
 }

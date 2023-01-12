@@ -3,6 +3,7 @@ package main;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 import model.WebNode;
 import model.WebPage;
@@ -15,11 +16,17 @@ public class SearchEngineApplication {
 
 	public static void main(String[] args) throws IOException {
 		String keyword = "資料結構";
+		// System.out.println(getRelatedKeyword(keyword));
 		System.out.println(Translator.translate(keyword));
-//		callGoogle(keyword);
 //		for (WebTree tree: Filter.trees) {
 //			System.out.println(tree.root.score + "|" + tree.root.page.url);
 //		}
+	}
+
+	public static List<String> getRelatedKeyword(String keyword) throws IOException {
+		keyword += " book";
+		GoogleQuery googleQuery = new GoogleQuery(keyword);
+		return googleQuery.getRelatedKeyword();
 	}
 
 	public static HashMap<String, String> callGoogle(String keyword) throws IOException {
