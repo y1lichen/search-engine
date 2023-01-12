@@ -1,0 +1,37 @@
+body{
+  display: flex;
+    justify-content: center; 
+    align-items: center; 
+}
+div{
+  border-width: 10px;
+  text-align: left;
+}
+.all{
+  background-color: skyblue;
+  border-width: 10px;
+  text-align: center;
+  vertical-align: middle;
+  width: 10000px;
+  height: 1000px;
+  font-family: Comic Sans MS, Comic Sans, cursive;
+}
+h1{
+   background-color: greenyellow;
+
+}
+
+
+span{
+  background-color: #f3e1dd;
+  text-align: center;
+  border-width:10px;
+}
+.button{
+  background-color: black;
+  color: yellow;
+}
+
+.button:hover{
+  background-color: red;
+}
